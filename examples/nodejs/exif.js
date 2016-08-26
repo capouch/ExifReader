@@ -11,10 +11,10 @@ var fs = require('fs');
 
 // Quick and dirty--maybe replace later?
 // array = [{key:value},{key:value}]
-function objectFindByKey(array, key, value) {
+function objectFindByKey(array, key) {
     for (var i = 0; i < array.length; i++) {
-        if (array[i][key] === value) {
-            return array[i];
+        if (array[i][key]) {
+            return i;
         }
     }
     return null;
@@ -60,7 +60,7 @@ if (process.argv.length < 3) {
 	return;
 }
 var directory = process.argv[2];
-var lookup = {},
+var lookup = [],
 	match = {},
   aid, coord;
 
@@ -81,10 +81,12 @@ for(i in syncro) {
 	  coord = pieces[1].trim()
 		match[coord] = aid
 		// console.log(JSON.stringify(match))
-		lookup[coord] = aid
+		// lookup[coord] = aid
+    lookup.push(match)
 		match = {}
 	}
 // console.log(JSON.stringify(lookup))
+// Get list of image files
 var files = fs.readdirSync(directory);
 
 // Generate a line of SQL for each file
@@ -118,23 +120,28 @@ files.forEach(function (path) {
 				if (pattern.test(name)) {
 				  // We're only interested in one IPTC tag, subLocation
 					subLocation = tags[name].description;
-					// console.log('Finding for ' + subLocation)
-					// index = objectFindByKey(lookup, 'coord', subLocation)
+					// console.log('Finding for ' + subLocation + ' in ' + justPath)
+					index = objectFindByKey(lookup, subLocation)
 					// console.log('Got index of ' + index)
-					// if (index > -1) {
+					if (index) {
 						// "Allocate" this aid and remove it from lookup table
-						// console.log("About to look up " + subLocation)
-						aid = lookup[subLocation]
+						// console.log("Fetching location from " + index)
+						aid = lookup[index][subLocation]
 						// console.log('Got ' + aid)
-						delete(lookup[subLocation])
-						// lookup.splice(index, 1);
-					// }
-					console.log("update asset set imagename = '" + justPath +
-					  "' where aid = '" + aid + "');'");
-					// console.log('Value of sublocation = ' + subLocation);
-			console.log('\r')
-		}
+						// delete(lookup[subLocation])
+						lookup.splice(index, 1);
+
+					//console.log("update asset set imagename = '" + justPath +
+					//  "' where aid = '" + aid + "';");
+					 // console.log('Value of sublocation = ' + subLocation);
+			    //console.log('\r')
+        }
+    else {
+      console.log('-- Error bad tag: ' + justPath + ' ' + subLocation)
+      console.log()
+    }
 	}
+}
 }
 		catch (error) {
 			console.log(error);
