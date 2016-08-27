@@ -122,7 +122,7 @@ files.forEach(function (path) {
 					subLocation = tags[name].description;
 					// console.log('Finding for ' + subLocation + ' in ' + justPath)
 					index = objectFindByKey(lookup, subLocation)
-					// console.log('Got index of ' + index)
+					// console.log('Got aid of ' + lookup[index][subLocation] + ' for sublocation ' + subLocation)
 					if (index) {
 						// "Allocate" this aid and remove it from lookup table
 						// console.log("Fetching location from " + index)
@@ -131,10 +131,10 @@ files.forEach(function (path) {
 						// delete(lookup[subLocation])
 						lookup.splice(index, 1);
 
-					//console.log("update asset set imagename = '" + justPath +
-					//  "' where aid = '" + aid + "';");
-					 // console.log('Value of sublocation = ' + subLocation);
-			    //console.log('\r')
+					console.log("update asset set imagename = '" + justPath +
+					  "' where aid = '" + aid + "';");
+				  // console.log('Value of sublocation = ' + subLocation);
+			    console.log('\r')
         }
     else {
       console.log('-- Error bad tag: ' + justPath + ' ' + subLocation)
