@@ -1,7 +1,7 @@
 /*
 
 	Re-link image files to database records
-		Currently gneerates sql batch file; more work is needed
+		Currently gneerates sql batch file; more work to come
 */
 
 var ExifReader = require('../../js/ExifReader.js').ExifReader;
