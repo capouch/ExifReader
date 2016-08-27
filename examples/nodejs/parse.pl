@@ -4,8 +4,10 @@
 #  Brian Capouch for Independence Cemetery Project
 #  26 August 2016
 
-# First 28 lines are boilerplate, copy to output
-for ($i = 0; $i < 28; $i++) {
+$HEADER = 28;
+
+# First $HEADER lines are boilerplate, copy to output
+for ($i = 0; $i < $HEADER; $i++) {
   $nextline = <STDIN>;
   print $nextline;
 }

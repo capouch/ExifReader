@@ -29,12 +29,12 @@ if (process.argv.length < 3) {
 // Set up variables
 var directory = process.argv[2];
 var lookup = [],
-	match = {},
-  aid, coord;
+	  match = {},
+    aid, coord;
 
-// This is the file that will allow us to "assign" images to asset records
+// This is the file that allows us to "assign" image names to asset records
 //   Read in file contents as an array of strings
-//   aid = assetID, cart=Cartesian location
+//   aid = assetID, coord=Cartesian location
 var syncro = fs.readFileSync('aid-cart.txt').toString().split("\n");
 
 // Split each line into an element of the object array lookup
