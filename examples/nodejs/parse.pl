@@ -14,6 +14,9 @@ for ($i = 0; $i < $HEADER; $i++) {
   print $nextline;
 }
 
+# Note currently the last 3 lines have to be removed from the source file
+#  before processing.  This needs to be fixed too
+
 # Continue as long as there's input
 while ($nextline = <STDIN>) {
   # Each record occupies $RECORD lines in the table
