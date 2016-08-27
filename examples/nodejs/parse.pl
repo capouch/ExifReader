@@ -4,7 +4,9 @@
 #  Brian Capouch for Independence Cemetery Project
 #  26 August 2016
 
+# Soon this part will be done more simply by using 'cat'
 $HEADER = 28;
+$RECORD = 8;
 
 # First $HEADER lines are boilerplate, copy to output
 for ($i = 0; $i < $HEADER; $i++) {
@@ -14,8 +16,8 @@ for ($i = 0; $i < $HEADER; $i++) {
 
 # Continue as long as there's input
 while ($nextline = <STDIN>) {
-  # Each record occupies 8 lines in the table
-  for($i = 0; $i < 8; $i++ ) {
+  # Each record occupies $RECORD lines in the table
+  for($i = 0; $i < $RECORD; $i++ ) {
     # print "Step $i\n";
     if ($i < 6) {
       if ($i == 5 ) { # Contains our cart coord
