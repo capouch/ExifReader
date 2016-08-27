@@ -34,7 +34,7 @@ var lookup = [],
 
 // This is the file that allows us to "assign" image names to asset records
 //   Read in file contents as an array of strings
-//   aid = assetID, coord=Cartesian location
+//   aid = assetID, coord=Cartesian location in cemetery
 var syncro = fs.readFileSync('aid-cart.txt').toString().split("\n");
 
 // Split each line into an element of the object array lookup
@@ -42,28 +42,29 @@ for(i in syncro) {
     // Vertical bar separates aid from cartCoord
     var pieces = syncro[i].split('|')
 
-		// Don't blow up if we hit an empty line
+		// Stop if we hit an empty line
 		if (typeof(pieces[1]) != 'string')
 		  break;
 
-    // Remove leading/trailing spaces
+    // Assign vars; Remove leading/trailing spaces
 		aid = pieces[0].trim()
 	  coord = pieces[1].trim()
 
-    // Assign asset ID to coordinate key
+    // Associate asset ID with coordinate key
 		match[coord] = aid
 		// console.log(JSON.stringify(match))
-    // Add record to arrayl and clear record var
+
+    // Add record to array and clear record var
     lookup.push(match)
 		match = {}
 	}
-// console.log(JSON.stringify(lookup))
+  // console.log(JSON.stringify(lookup))
 
 // Get list of image files
 var files = fs.readdirSync(directory);
 
 // Generate a line of SQL for each file
-//   Each marker can have muliple images
+//   Each marker can have muliple images!
 files.forEach(function (path) {
   // Filename without directory prefix
 	var justPath = path;
@@ -113,14 +114,14 @@ files.forEach(function (path) {
   				  // console.log('Value of sublocation = ' + subLocation);
   			    console.log('\r')
           }
-    else {
-      // Generate error message
-      console.log('-- Error bad tag: ' + justPath + ' ' + subLocation)
-      console.log()
+          else {
+            // Generate error message
+            console.log('-- Error bad tag: ' + justPath + ' ' + subLocation)
+            console.log()
+          }
+	      }
+      }
     }
-	}
-}
-}
 		catch (error) {
 			console.log(error);
 		}
