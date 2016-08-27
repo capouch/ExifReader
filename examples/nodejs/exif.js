@@ -1,6 +1,6 @@
 /*
 
-	Modified version to try to recover Independence images from Picasa
+	Re-link image files to database records
 		Currently gneerates sql batch file; more work is needed
 */
 
