@@ -108,7 +108,7 @@ files.forEach(function (path) {
 						aid = lookup[index][subLocation]
 						// console.log('Got ' + aid)
 						lookup.splice(index, 1);
-
+            
   					console.log("update asset set imagename = '" + justPath +
   					  "' where aid = '" + aid + "';");
   				  // console.log('Value of sublocation = ' + subLocation);
